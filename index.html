@@ -1,611 +1,1759 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PRG QuizZap! – PRG Velappa Naidu Matric Hr Sec School</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --yellow: #FFD700;
-      --orange: #FF6B35;
-      --pink: #FF4DA6;
-      --blue: #2BD9FE;
-      --purple: #9B5DE5;
-      --green: #06D6A0;
-      --bg: #0D0A2C;
-      --card: #1A1445;
-      --card2: #221860;
-      --white: #FFFEF4;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--white);
-      overflow-x: hidden;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E⭐%3C/text%3E%3C/svg%3E") 16 16, auto;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRG QuizZap! – PRG Velappa Naidu Matric Hr Sec School</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --orange: #FF6B35;
+            --pink: #FF4DA6;
+            --blue: #2BD9FE;
+            --purple: #9B5DE5;
+            --green: #06D6A0;
+            --bg: #0D0A2C;
+            --card: #1A1445;
+            --card2: #221860;
+            --white: #FFFEF4;
+        }
 
-    /* BG */
-    .bg-canvas { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
-    .bg-canvas::before {
-      content:''; position:absolute; inset:0;
-      background:
-        radial-gradient(ellipse at 20% 30%,rgba(155,93,229,.35) 0%,transparent 55%),
-        radial-gradient(ellipse at 80% 70%,rgba(255,77,166,.25) 0%,transparent 55%),
-        radial-gradient(ellipse at 50% 10%,rgba(43,217,254,.2) 0%,transparent 50%);
-    }
-    .star { position:absolute; border-radius:50%; background:var(--white); animation:twinkle var(--d,2s) ease-in-out infinite alternate; }
-    @keyframes twinkle { from{opacity:.1;transform:scale(1)} to{opacity:1;transform:scale(1.5)} }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .floaters { position:fixed; inset:0; z-index:0; pointer-events:none; }
-    .floater { position:absolute; font-size:clamp(1.5rem,4vw,3rem); animation:float var(--ft,6s) ease-in-out infinite alternate; opacity:.7; filter:drop-shadow(0 0 8px rgba(255,255,255,.4)); }
-    @keyframes float { 0%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(8deg)} 100%{transform:translateY(5px) rotate(-6deg)} }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* LAYOUT */
-    .wrapper { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:0 1rem 4rem; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            overflow-x: hidden;
+        }
 
-    /* NAV */
-    nav { width:100%; max-width:1100px; display:flex; justify-content:space-between; align-items:center; padding:1.2rem 1.5rem; animation:slideDown .7s cubic-bezier(.34,1.56,.64,1) both; }
-    @keyframes slideDown { from{opacity:0;transform:translateY(-40px)} to{opacity:1;transform:translateY(0)} }
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
 
-    .logo-block { display:flex; flex-direction:column; }
-    .logo {
-      font-family:'Fredoka One',cursive;
-      font-size:clamp(1.6rem,4.5vw,2.2rem);
-      background:linear-gradient(135deg,var(--yellow),var(--orange),var(--pink));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      letter-spacing:2px;
-      animation:logoPulse 3s ease-in-out infinite;
-    }
-    @keyframes logoPulse { 0%,100%{filter:drop-shadow(0 0 12px rgba(255,107,53,.5))} 50%{filter:drop-shadow(0 0 24px rgba(255,215,0,.8))} }
-    .school-name { font-size:clamp(.58rem,1.6vw,.75rem); font-weight:800; color:rgba(255,254,244,.5); letter-spacing:.5px; text-transform:uppercase; margin-top:.1rem; }
+        .bg-canvas::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 30%, rgba(155, 93, 229, .35) 0%, transparent 55%), radial-gradient(ellipse at 80% 70%, rgba(255, 77, 166, .25) 0%, transparent 55%), radial-gradient(ellipse at 50% 10%, rgba(43, 217, 254, .2) 0%, transparent 50%);
+        }
 
-    .nav-btns { display:flex; gap:.65rem; align-items:center; flex-wrap:wrap; }
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--white);
+            animation: twinkle var(--d, 2s) ease-in-out infinite alternate;
+        }
 
-    .teacher-nav-btn { font-family:'Nunito',sans-serif; font-weight:800; font-size:.85rem; padding:.55rem 1.1rem; border-radius:50px; border:2px dashed var(--yellow); background:rgba(255,215,0,.08); color:var(--yellow); cursor:pointer; transition:transform .2s,background .2s,box-shadow .2s; }
-    .teacher-nav-btn:hover { background:rgba(255,215,0,.18); transform:scale(1.06); box-shadow:0 0 16px rgba(255,215,0,.4); }
+        @keyframes twinkle {
+            from {
+                opacity: .1;
+                transform: scale(1)
+            }
 
-    .btn { font-family:'Nunito',sans-serif; font-weight:800; font-size:.95rem; padding:.6rem 1.4rem; border-radius:50px; border:none; cursor:pointer; transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s; position:relative; overflow:hidden; }
-    .btn::after { content:''; position:absolute; inset:0; background:rgba(255,255,255,.15); opacity:0; transition:opacity .2s; }
-    .btn:hover::after { opacity:1; }
-    .btn:hover { transform:scale(1.08) translateY(-2px); }
-    .btn:active { transform:scale(.96); }
-    .btn-ghost { background:transparent; border:2.5px solid var(--blue); color:var(--blue); box-shadow:0 0 12px rgba(43,217,254,.3); }
-    .btn-ghost:hover { box-shadow:0 0 24px rgba(43,217,254,.6); }
-    .btn-primary { background:linear-gradient(135deg,var(--pink),var(--purple)); color:#fff; box-shadow:0 4px 20px rgba(155,93,229,.5); }
-    .btn-primary:hover { box-shadow:0 8px 30px rgba(155,93,229,.8); }
-    .btn-big { font-size:1.2rem; padding:1rem 2.5rem; border-radius:60px; }
-    .btn-yellow { background:linear-gradient(135deg,var(--yellow),var(--orange)); color:var(--bg); box-shadow:0 4px 20px rgba(255,107,53,.5); }
-    .btn-yellow:hover { box-shadow:0 8px 30px rgba(255,215,0,.8); }
-    .btn-green { background:linear-gradient(135deg,var(--green),var(--blue)); color:var(--bg); box-shadow:0 4px 20px rgba(6,214,160,.5); }
-    .btn-green:hover { box-shadow:0 8px 30px rgba(6,214,160,.8); }
+            to {
+                opacity: 1;
+                transform: scale(1.5)
+            }
+        }
 
-    /* HERO */
-    .hero { text-align:center; padding:2.5rem 1rem 2rem; max-width:860px; width:100%; animation:fadeUp .9s .3s cubic-bezier(.34,1.56,.64,1) both; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(50px)} to{opacity:1;transform:translateY(0)} }
+        .floaters {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .school-badge { display:inline-block; background:rgba(255,215,0,.12); border:1.5px solid var(--yellow); color:var(--yellow); border-radius:50px; padding:.4rem 1.3rem; font-size:.85rem; font-weight:800; letter-spacing:1px; margin-bottom:1.2rem; animation:badgePop 2.5s ease-in-out infinite; }
-    @keyframes badgePop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+        .floater {
+            position: absolute;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            animation: float var(--ft, 6s) ease-in-out infinite alternate;
+            opacity: .7;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, .4));
+        }
 
-    .mascot { font-size:clamp(5rem,15vw,10rem); display:block; margin:0 auto .8rem; animation:mascotBounce 1.5s ease-in-out infinite; filter:drop-shadow(0 0 20px rgba(255,215,0,.5)); }
-    @keyframes mascotBounce { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-18px) scale(1.06)} }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg)
+            }
 
-    .hero h1 { font-family:'Fredoka One',cursive; font-size:clamp(2.4rem,8vw,5rem); line-height:1.1; margin-bottom:1rem; }
-    .hero h1 span.w1 { color:var(--yellow); display:inline-block; animation:wiggle 2s 1s ease-in-out infinite; }
-    .hero h1 span.w2 { color:var(--pink); display:inline-block; animation:wiggle 2s 1.2s ease-in-out infinite; }
-    .hero h1 span.w3 { color:var(--blue); display:inline-block; animation:wiggle 2s 1.4s ease-in-out infinite; }
-    @keyframes wiggle { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(-4deg) scale(1.07)} 75%{transform:rotate(4deg) scale(1.07)} }
+            50% {
+                transform: translateY(-20px) rotate(8deg)
+            }
 
-    .hero p { font-size:clamp(1rem,2.5vw,1.2rem); color:rgba(255,254,244,.75); max-width:540px; margin:0 auto 2rem; font-weight:600; line-height:1.6; }
-    .hero-btns { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
+            100% {
+                transform: translateY(5px) rotate(-6deg)
+            }
+        }
 
-    /* CATEGORIES */
-    .section-label { font-family:'Fredoka One',cursive; font-size:clamp(1.8rem,5vw,3rem); text-align:center; margin:3rem 0 1.5rem; }
-    .section-label::after { content:''; display:block; width:80px; height:4px; background:linear-gradient(90deg,var(--pink),var(--yellow)); border-radius:2px; margin:.5rem auto 0; }
+        /* VIEWS */
+        .view {
+            display: none;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
 
-    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; width:100%; max-width:900px; }
-    .card { background:var(--card); border-radius:24px; padding:1.8rem 1.5rem; border:1.5px solid rgba(255,255,255,.08); position:relative; overflow:hidden; transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s; cursor:pointer; }
-    .card::before { content:''; position:absolute; top:-40%; left:-40%; width:180%; height:180%; background:radial-gradient(circle,var(--glow,rgba(255,215,0,.12)) 0%,transparent 60%); opacity:0; transition:opacity .4s; }
-    .card:hover::before { opacity:1; }
-    .card:hover { transform:translateY(-8px) scale(1.02); border-color:var(--accent,var(--yellow)); box-shadow:0 16px 40px rgba(0,0,0,.4),0 0 0 1px var(--accent,var(--yellow)); }
-    .card-emoji { font-size:2.8rem; margin-bottom:.8rem; display:block; }
-    .card h3 { font-family:'Fredoka One',cursive; font-size:1.3rem; margin-bottom:.4rem; }
-    .card p { font-size:.88rem; color:rgba(255,254,244,.65); font-weight:600; line-height:1.5; }
-    .card-tag { position:absolute; top:1rem; right:1rem; font-size:.72rem; font-weight:800; padding:.25rem .7rem; border-radius:50px; text-transform:uppercase; letter-spacing:.5px; }
-    .q-count { display:inline-block; margin-top:.7rem; font-size:.8rem; font-weight:800; padding:.2rem .7rem; border-radius:50px; background:rgba(255,255,255,.08); color:rgba(255,254,244,.6); }
+        .view.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1rem 4rem;
+        }
 
-    /* AUTH */
-    .auth-section { width:100%; max-width:900px; margin-top:3rem; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; animation:fadeUp .9s .6s both; }
-    @media(max-width:640px){ .auth-section{grid-template-columns:1fr;} }
+        /* NAV */
+        nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            animation: slideDown .7s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
 
-    .auth-card { background:var(--card2); border-radius:28px; padding:2.2rem; border:1.5px solid rgba(255,255,255,.1); position:relative; overflow:hidden; transition:transform .3s,box-shadow .3s; }
-    .auth-card:hover { transform:translateY(-6px); }
-    .auth-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--grad); }
-    .auth-card.signup { --grad:linear-gradient(90deg,var(--green),var(--blue)); }
-    .auth-card.signup:hover { box-shadow:0 20px 60px rgba(6,214,160,.25); }
-    .auth-card.login { --grad:linear-gradient(90deg,var(--pink),var(--purple)); }
-    .auth-card.login:hover { box-shadow:0 20px 60px rgba(155,93,229,.25); }
-    .auth-card h2 { font-family:'Fredoka One',cursive; font-size:1.8rem; margin-bottom:.3rem; }
-    .auth-card .subtitle { color:rgba(255,254,244,.6); font-size:.9rem; font-weight:600; margin-bottom:1.5rem; }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px)
+            }
 
-    .form-group { margin-bottom:1rem; }
-    .form-group label { display:block; font-weight:800; font-size:.85rem; margin-bottom:.4rem; color:rgba(255,254,244,.8); }
-    .form-group input, .form-group select { width:100%; background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.12); border-radius:14px; color:var(--white); font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:600; padding:.75rem 1rem; transition:border-color .2s,box-shadow .2s,background .2s; outline:none; }
-    .form-group input::placeholder { color:rgba(255,254,244,.3); }
-    .form-group input:focus { border-color:var(--blue); background:rgba(43,217,254,.07); box-shadow:0 0 0 3px rgba(43,217,254,.2); }
-    .form-group select option { background:var(--card2); }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
 
-    .divider { display:flex; align-items:center; gap:.75rem; margin:1.2rem 0; color:rgba(255,254,244,.35); font-size:.8rem; font-weight:700; }
-    .divider::before,.divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.1); }
+        .logo-block {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .social-btns { display:flex; gap:.75rem; }
-    .social-btn { flex:1; background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.12); border-radius:12px; color:var(--white); font-family:'Nunito',sans-serif; font-weight:800; font-size:.88rem; padding:.65rem .5rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.4rem; transition:background .2s,transform .2s,border-color .2s; }
-    .social-btn:hover { background:rgba(255,255,255,.13); transform:translateY(-2px); border-color:rgba(255,255,255,.25); }
-    .social-btn .s-icon { font-size:1.1rem; }
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+            background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
 
-    .auth-footer { text-align:center; margin-top:1.2rem; font-size:.85rem; color:rgba(255,254,244,.5); font-weight:600; }
-    .auth-footer a { color:var(--blue); text-decoration:none; font-weight:800; transition:color .2s; }
-    .auth-footer a:hover { color:var(--yellow); }
+        @keyframes logoPulse {
 
-    .progress-bar-wrap { background:rgba(255,255,255,.1); border-radius:50px; overflow:hidden; height:8px; margin-top:.5rem; }
-    .progress-bar { height:100%; border-radius:50px; background:linear-gradient(90deg,var(--green),var(--blue)); animation:growBar 2s 1.5s ease-out both; }
-    @keyframes growBar { from{width:0} to{width:72%} }
+            0%,
+            100% {
+                filter: drop-shadow(0 0 12px rgba(255, 107, 53, .5))
+            }
 
-    /* ===== TEACHER SECTION ===== */
-    .teacher-section { width:100%; max-width:900px; margin-top:3.5rem; }
-    .teacher-card {
-      background:linear-gradient(135deg,rgba(34,24,96,.9),rgba(26,20,69,.95));
-      border:2px dashed rgba(255,215,0,.35);
-      border-radius:28px;
-      padding:2.4rem 2rem;
-      position:relative; overflow:hidden;
-      transition:border-color .3s,box-shadow .3s;
-    }
-    .teacher-card:hover { border-color:rgba(255,215,0,.6); box-shadow:0 20px 60px rgba(255,215,0,.1); }
-    .teacher-card::after { content:'👩‍🏫'; position:absolute; top:1.2rem; right:1.5rem; font-size:2.5rem; opacity:.5; animation:float 4s ease-in-out infinite alternate; pointer-events:none; }
+            50% {
+                filter: drop-shadow(0 0 24px rgba(255, 215, 0, .8))
+            }
+        }
 
-    .teacher-header { margin-bottom:1.8rem; }
-    .teacher-title-row { display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-bottom:.3rem; }
-    .teacher-title-row h2 { font-family:'Fredoka One',cursive; font-size:1.8rem; }
-    .teacher-tag { background:rgba(255,215,0,.15); border:1.5px solid rgba(255,215,0,.4); color:var(--yellow); border-radius:50px; padding:.3rem .9rem; font-size:.72rem; font-weight:800; letter-spacing:.5px; text-transform:uppercase; white-space:nowrap; }
-    .teacher-header p { color:rgba(255,254,244,.6); font-size:.9rem; font-weight:600; }
+        .school-name {
+            font-size: clamp(.58rem, 1.6vw, .75rem);
+            font-weight: 800;
+            color: rgba(255, 254, 244, .5);
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            margin-top: .1rem;
+        }
 
-    .teacher-verify-row { display:grid; grid-template-columns:1fr 1fr auto; gap:.8rem; margin-bottom:1.8rem; align-items:end; }
-    @media(max-width:580px){ .teacher-verify-row{grid-template-columns:1fr;} }
+        .nav-btns {
+            display: flex;
+            gap: .65rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-    .sector-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem; }
+        .btn {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: .95rem;
+            padding: .6rem 1.4rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), box-shadow .2s;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .sector-panel { background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden; transition:border-color .3s,transform .3s; }
-    .sector-panel:hover { border-color:var(--s-color,var(--blue)); transform:translateY(-4px); }
-    .sector-head { display:flex; align-items:center; gap:.6rem; padding:.9rem 1.2rem; background:rgba(255,255,255,.05); border-bottom:1.5px solid rgba(255,255,255,.07); cursor:pointer; user-select:none; }
-    .sector-head .s-emoji { font-size:1.4rem; }
-    .sector-head span.s-label { font-family:'Fredoka One',cursive; font-size:1.05rem; flex:1; }
-    .sector-head .arrow { font-size:.8rem; color:rgba(255,254,244,.4); transition:transform .3s; }
-    .sector-panel.open .sector-head .arrow { transform:rotate(180deg); }
-    .sector-body { max-height:0; overflow:hidden; transition:max-height .4s ease; padding:0 1.2rem; }
-    .sector-panel.open .sector-body { max-height:700px; padding:1rem 1.2rem; }
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, .15);
+            opacity: 0;
+            transition: opacity .2s;
+        }
 
-    .q-row { display:flex; align-items:flex-start; gap:.6rem; margin-bottom:.75rem; }
-    .q-num { min-width:24px; height:24px; border-radius:50%; background:var(--s-color,var(--blue)); color:var(--bg); font-size:.72rem; font-weight:900; display:flex; align-items:center; justify-content:center; margin-top:.55rem; flex-shrink:0; }
-    .q-input { flex:1; background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:10px; color:var(--white); font-family:'Nunito',sans-serif; font-size:.88rem; font-weight:600; padding:.55rem .85rem; resize:none; outline:none; transition:border-color .2s,background .2s; }
-    .q-input:focus { border-color:var(--s-color,var(--blue)); background:rgba(43,217,254,.06); }
-    .q-input::placeholder { color:rgba(255,254,244,.25); }
+        .btn:hover::after {
+            opacity: 1;
+        }
 
-    .sector-save { width:100%; margin-top:.3rem; font-family:'Nunito',sans-serif; font-weight:800; font-size:.88rem; padding:.65rem; border-radius:12px; border:none; cursor:pointer; background:linear-gradient(135deg,var(--s-color,var(--blue)),rgba(155,93,229,.8)); color:var(--bg); transition:transform .2s,box-shadow .2s; }
-    .sector-save:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(43,217,254,.3); }
+        .btn:hover {
+            transform: scale(1.08) translateY(-2px);
+        }
 
-    .upload-note { margin-top:1.5rem; background:rgba(6,214,160,.08); border:1px solid rgba(6,214,160,.2); border-radius:14px; padding:.9rem 1.2rem; font-size:.85rem; font-weight:600; color:rgba(255,254,244,.65); display:flex; align-items:center; gap:.6rem; }
-    .upload-note .note-icon { font-size:1.2rem; flex-shrink:0; }
+        .btn:active {
+            transform: scale(.96);
+        }
 
-    /* CTA */
-    .cta-strip { width:100%; max-width:900px; margin-top:3rem; background:linear-gradient(135deg,rgba(155,93,229,.3),rgba(255,77,166,.3)); border:1.5px solid rgba(155,93,229,.4); border-radius:28px; padding:2.5rem 2rem; text-align:center; position:relative; overflow:hidden; animation:fadeUp .9s .8s both; }
-    .cta-strip::before { content:'🎉🎊✨'; position:absolute; top:-10px; right:1.5rem; font-size:2rem; opacity:.5; animation:float 3s ease-in-out infinite alternate; }
-    .cta-strip h2 { font-family:'Fredoka One',cursive; font-size:clamp(1.5rem,4vw,2.2rem); margin-bottom:.6rem; }
-    .cta-strip p { color:rgba(255,254,244,.7); font-weight:600; margin-bottom:1.5rem; font-size:1rem; }
+        .btn-ghost {
+            background: transparent;
+            border: 2.5px solid var(--blue);
+            color: var(--blue);
+            box-shadow: 0 0 12px rgba(43, 217, 254, .3);
+        }
 
-    /* MODAL */
-    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(13,10,44,.85); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; }
-    .modal-overlay.open { opacity:1; pointer-events:all; }
-    .modal-box { background:var(--card2); border-radius:28px; padding:2.5rem; width:min(480px,92vw); border:1.5px solid rgba(255,255,255,.12); transform:scale(.85) translateY(30px); transition:transform .4s cubic-bezier(.34,1.56,.64,1); position:relative; max-height:90vh; overflow-y:auto; }
-    .modal-overlay.open .modal-box { transform:scale(1) translateY(0); }
-    .modal-close { position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,.1); border:none; color:var(--white); border-radius:50%; width:34px; height:34px; font-size:1.1rem; cursor:pointer; transition:background .2s,transform .2s; }
-    .modal-close:hover { background:rgba(255,255,255,.2); transform:rotate(90deg); }
-    .modal-title { font-family:'Fredoka One',cursive; font-size:1.8rem; margin-bottom:.3rem; }
-    .modal-sub { color:rgba(255,254,244,.55); font-size:.9rem; font-weight:600; margin-bottom:1.4rem; }
+        .btn-ghost:hover {
+            box-shadow: 0 0 24px rgba(43, 217, 254, .6);
+        }
 
-    /* CONFETTI */
-    .confetti-piece { position:fixed; width:10px; height:14px; top:-20px; border-radius:2px; animation:confettiFall linear forwards; pointer-events:none; z-index:200; }
-    @keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(155, 93, 229, .5);
+        }
 
-    footer { text-align:center; padding:2rem 1rem; color:rgba(255,254,244,.3); font-size:.85rem; font-weight:600; }
-    .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease,transform .7s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+        .btn-big {
+            font-size: 1.2rem;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+        }
 
-    @keyframes savedFlash { 0%,100%{opacity:0;transform:translateX(-50%) scale(.8)} 30%,70%{opacity:1;transform:translateX(-50%) scale(1)} }
-    .saved-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); color:var(--bg); font-family:'Fredoka One',cursive; font-size:1rem; padding:.7rem 1.8rem; border-radius:50px; z-index:300; animation:savedFlash 2.5s ease forwards; pointer-events:none; white-space:nowrap; }
+        .btn-yellow {
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            color: var(--bg);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, .5);
+        }
 
-    @media(max-width:480px){ .nav-btns .btn-ghost{display:none} }
-  </style>
+        .btn-yellow:hover {
+            box-shadow: 0 8px 30px rgba(255, 215, 0, .8);
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            color: var(--bg);
+            box-shadow: 0 4px 20px rgba(6, 214, 160, .5);
+        }
+
+        .btn-red {
+            background: linear-gradient(135deg, #ff4444, #ff0074);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(255, 68, 68, .5);
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 1rem 2rem;
+            max-width: 860px;
+            width: 100%;
+            animation: fadeUp .9s .3s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .school-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, .12);
+            border: 1.5px solid var(--yellow);
+            color: var(--yellow);
+            border-radius: 50px;
+            padding: .4rem 1.3rem;
+            font-size: .85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+        }
+
+        .mascot {
+            font-size: clamp(5rem, 15vw, 10rem);
+            display: block;
+            margin: 0 auto .8rem;
+            animation: mascotBounce 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, .5));
+        }
+
+        @keyframes mascotBounce {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1)
+            }
+
+            50% {
+                transform: translateY(-18px) scale(1.06)
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2.4rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span.w1 {
+            color: var(--yellow);
+            display: inline-block;
+            animation: wiggle 2s 1s ease-in-out infinite;
+        }
+
+        .hero h1 span.w2 {
+            color: var(--pink);
+            display: inline-block;
+            animation: wiggle 2s 1.2s ease-in-out infinite;
+        }
+
+        .hero h1 span.w3 {
+            color: var(--blue);
+            display: inline-block;
+            animation: wiggle 2s 1.4s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg)
+            }
+
+            25% {
+                transform: rotate(-4deg) scale(1.07)
+            }
+
+            75% {
+                transform: rotate(4deg) scale(1.07)
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: rgba(255, 254, 244, .75);
+            max-width: 540px;
+            margin: 0 auto 2rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* SECTION LABEL */
+        .section-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .section-label::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink), var(--yellow));
+            border-radius: 2px;
+            margin: .5rem auto 0;
+        }
+
+        /* AUTH CARDS */
+        .auth-section {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            animation: fadeUp .9s .6s both;
+        }
+
+        @media(max-width:640px) {
+            .auth-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .auth-card {
+            background: var(--card2);
+            border-radius: 28px;
+            padding: 2.2rem;
+            border: 1.5px solid rgba(255, 255, 255, .1);
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--grad);
+        }
+
+        .auth-card.signup {
+            --grad: linear-gradient(90deg, var(--green), var(--blue));
+        }
+
+        .auth-card.signup:hover {
+            box-shadow: 0 20px 60px rgba(6, 214, 160, .25);
+        }
+
+        .auth-card.login {
+            --grad: linear-gradient(90deg, var(--pink), var(--purple));
+        }
+
+        .auth-card.login:hover {
+            box-shadow: 0 20px 60px rgba(155, 93, 229, .25);
+        }
+
+        .auth-card h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            margin-bottom: .3rem;
+        }
+
+        .auth-card .subtitle {
+            color: rgba(255, 254, 244, .6);
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 800;
+            font-size: .85rem;
+            margin-bottom: .4rem;
+            color: rgba(255, 254, 244, .8);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            background: rgba(255, 255, 255, .07);
+            border: 1.5px solid rgba(255, 255, 255, .12);
+            border-radius: 14px;
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+            font-size: .95rem;
+            font-weight: 600;
+            padding: .75rem 1rem;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            outline: none;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 254, 244, .3);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--blue);
+            background: rgba(43, 217, 254, .07);
+            box-shadow: 0 0 0 3px rgba(43, 217, 254, .2);
+        }
+
+        .form-group select option {
+            background: var(--card2);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: .85rem;
+            color: rgba(255, 254, 244, .5);
+            font-weight: 600;
+        }
+
+        .auth-footer a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        /* STUDENT DASHBOARD */
+        .dash-header {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            flex-wrap: wrap;
+            gap: .8rem;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            background: rgba(255, 255, 255, .06);
+            border-radius: 50px;
+            padding: .5rem 1.2rem .5rem .6rem;
+            border: 1.5px solid rgba(255, 255, 255, .1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 900;
+            font-size: .95rem;
+        }
+
+        .user-score {
+            font-size: .78rem;
+            color: var(--yellow);
+            font-weight: 800;
+        }
+
+        .dash-nav {
+            display: flex;
+            gap: .6rem;
+            flex-wrap: wrap;
+        }
+
+        /* SECTOR CARDS */
+        .sector-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.4rem;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 1rem;
+        }
+
+        .sector-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            border: 1.5px solid rgba(255, 255, 255, .08);
+            cursor: pointer;
+            transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), border-color .3s, box-shadow .3s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sector-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, var(--glow, rgba(255, 215, 0, .12)) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .sector-card:hover::before {
+            opacity: 1;
+        }
+
+        .sector-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent, var(--yellow));
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .4), 0 0 0 1px var(--accent, var(--yellow));
+        }
+
+        .sector-card .s-icon {
+            font-size: 3.5rem;
+            margin-bottom: .8rem;
+            display: block;
+        }
+
+        .sector-card h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4rem;
+            margin-bottom: .4rem;
+        }
+
+        .sector-card .q-info {
+            font-size: .85rem;
+            color: rgba(255, 254, 244, .55);
+            font-weight: 700;
+        }
+
+        .sector-card .done-badge {
+            position: absolute;
+            top: .8rem;
+            right: .8rem;
+            background: var(--green);
+            color: var(--bg);
+            font-size: .7rem;
+            font-weight: 900;
+            padding: .2rem .6rem;
+            border-radius: 50px;
+        }
+
+        /* QUIZ VIEW */
+        .quiz-container {
+            width: 100%;
+            max-width: 760px;
+            margin-top: 1.5rem;
+        }
+
+        .quiz-progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--blue));
+            border-radius: 50px;
+            transition: width .4s ease;
+        }
+
+        .q-card {
+            background: var(--card2);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1.5px solid rgba(255, 255, 255, .1);
+            animation: fadeUp .5s ease both;
+        }
+
+        .q-label {
+            font-size: .8rem;
+            font-weight: 800;
+            color: rgba(255, 254, 244, .45);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: .6rem;
+        }
+
+        .q-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .8rem;
+        }
+
+        @media(max-width:480px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .opt-btn {
+            background: rgba(255, 255, 255, .07);
+            border: 2px solid rgba(255, 255, 255, .12);
+            border-radius: 16px;
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            text-align: left;
+            transition: background .2s, border-color .2s, transform .2s;
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            background: rgba(43, 217, 254, .1);
+            border-color: var(--blue);
+            transform: scale(1.02);
+        }
+
+        .opt-btn.correct {
+            background: rgba(6, 214, 160, .2) !important;
+            border-color: var(--green) !important;
+            animation: correctPulse .4s ease;
+        }
+
+        .opt-btn.wrong {
+            background: rgba(255, 68, 68, .2) !important;
+            border-color: #ff4444 !important;
+            animation: shake .4s ease;
+        }
+
+        .opt-btn:disabled {
+            cursor: default;
+        }
+
+        @keyframes correctPulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.05)
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-8px)
+            }
+
+            75% {
+                transform: translateX(8px)
+            }
+        }
+
+        .opt-letter {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .15);
+            font-size: .8rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* FEEDBACK OVERLAY */
+        .feedback-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        .feedback-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .feedback-overlay.correct-bg {
+            background: rgba(6, 214, 160, .15);
+        }
+
+        .feedback-overlay.wrong-bg {
+            background: rgba(255, 68, 68, .1);
+        }
+
+        .feedback-icon {
+            font-size: 8rem;
+            animation: feedbackPop .6s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes feedbackPop {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(-20deg)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg)
+            }
+        }
+
+        .feedback-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 1rem;
+            animation: fadeUp .5s .3s both;
+        }
+
+        .feedback-sub {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(255, 254, 244, .7);
+            text-align: center;
+            margin-top: .5rem;
+            animation: fadeUp .5s .5s both;
+        }
+
+        .point-burst {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--yellow);
+            animation: pointBurst .8s .2s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes pointBurst {
+            from {
+                opacity: 0;
+                transform: scale(0) translateY(20px)
+            }
+
+            60% {
+                transform: scale(1.3) translateY(-10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+
+        /* CONFETTI */
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 14px;
+            top: -20px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+            pointer-events: none;
+            z-index: 600;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0
+            }
+        }
+
+        /* APPLAUSE RINGS */
+        .applause-ring {
+            position: fixed;
+            border-radius: 50%;
+            border: 4px solid var(--green);
+            animation: ringExpand 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 490;
+        }
+
+        @keyframes ringExpand {
+            from {
+                width: 0;
+                height: 0;
+                opacity: .9
+            }
+
+            to {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+                margin: -200px;
+            }
+        }
+
+        /* LEADERBOARD */
+        .leaderboard {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 1rem;
+        }
+
+        .lb-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--card2);
+            border-radius: 18px;
+            padding: 1rem 1.5rem;
+            margin-bottom: .7rem;
+            border: 1.5px solid rgba(255, 255, 255, .08);
+            transition: transform .2s;
+        }
+
+        .lb-row:hover {
+            transform: translateX(6px);
+        }
+
+        .lb-row.me {
+            border-color: var(--yellow);
+            box-shadow: 0 0 20px rgba(255, 215, 0, .2);
+        }
+
+        .lb-rank {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .lb-name {
+            flex: 1;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .lb-class {
+            font-size: .8rem;
+            color: rgba(255, 254, 244, .5);
+            font-weight: 700;
+        }
+
+        .lb-score {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4rem;
+            color: var(--yellow);
+        }
+
+        /* TEACHER PORTAL VIEW */
+        .teacher-wrap {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 1.5rem;
+        }
+
+        .t-tabs {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .t-tab {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: .9rem;
+            padding: .55rem 1.2rem;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .05);
+            color: var(--white);
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+        }
+
+        .t-tab.active {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border-color: transparent;
+        }
+
+        .t-panel {
+            display: none;
+        }
+
+        .t-panel.active {
+            display: block;
+        }
+
+        .q-upload-card {
+            background: var(--card2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1.5px solid rgba(255, 255, 255, .08);
+        }
+
+        .q-num-head {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            color: var(--yellow);
+            margin-bottom: .8rem;
+        }
+
+        .q-upload-card input,
+        .q-upload-card select {
+            width: 100%;
+            background: rgba(255, 255, 255, .07);
+            border: 1.5px solid rgba(255, 255, 255, .12);
+            border-radius: 12px;
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            padding: .6rem .9rem;
+            outline: none;
+            margin-bottom: .5rem;
+            transition: border-color .2s;
+        }
+
+        .q-upload-card input:focus,
+        .q-upload-card select:focus {
+            border-color: var(--blue);
+        }
+
+        .q-upload-card input::placeholder {
+            color: rgba(255, 254, 244, .3);
+        }
+
+        .opts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .5rem;
+        }
+
+        .q-upload-card select option {
+            background: var(--card2);
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--bg);
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: .7rem 1.8rem;
+            border-radius: 50px;
+            z-index: 700;
+            animation: toastAnim 2.8s ease forwards;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @keyframes toastAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px)
+            }
+
+            15%,
+            85% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0)
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: rgba(255, 254, 244, .3);
+            font-size: .85rem;
+            font-weight: 600;
+        }
+
+        @media(max-width:480px) {
+            .nav-btns .btn-ghost {
+                display: none
+            }
+        }
+
+        /* All done card */
+        .done-card {
+            background: var(--card2);
+            border-radius: 28px;
+            padding: 3rem 2rem;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem auto;
+            border: 2px solid var(--green);
+            box-shadow: 0 0 40px rgba(6, 214, 160, .2);
+            animation: fadeUp .6s ease both;
+        }
+
+        .done-card .big-icon {
+            font-size: 6rem;
+            animation: mascotBounce 1.5s ease-in-out infinite;
+        }
+
+        .done-card h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            margin: 1rem 0 .5rem;
+        }
+
+        .done-card p {
+            color: rgba(255, 254, 244, .65);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="bg-canvas" id="bgCanvas"></div>
+    <div class="floaters" id="floaters"></div>
 
-<div class="bg-canvas" id="bgCanvas"></div>
-<div class="floaters" id="floaters"></div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-title" id="modalTitle"></div>
-    <p class="modal-sub" id="modalSub"></p>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<div class="wrapper">
-
-  <!-- NAV -->
-  <nav>
-    <div class="logo-block">
-      <div class="logo">⚡ PRG QuizZap!</div>
-      <div class="school-name">PRG Velappa Naidu Matric Hr Sec School</div>
+    <!-- FEEDBACK OVERLAY -->
+    <div class="feedback-overlay" id="feedbackOverlay">
+        <div class="feedback-icon" id="feedbackIcon"></div>
+        <div class="feedback-text" id="feedbackText"></div>
+        <div class="feedback-sub" id="feedbackSub"></div>
+        <div class="point-burst" id="pointBurst"></div>
     </div>
-    <div class="nav-btns">
-      <button class="teacher-nav-btn" onclick="scrollToTeacher()">👩‍🏫 Teacher Portal</button>
-      <button class="btn btn-ghost" onclick="openModal('login')">Log In</button>
-      <button class="btn btn-primary" onclick="openModal('signup')">Join Now</button>
-    </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <span class="mascot">🦸</span>
-    <div class="school-badge">🏫 PRG Velappa Naidu Matric Hr Sec School</div>
-    <h1>
-      <span class="w1">Study.</span>&nbsp;
-      <span class="w2">Quiz.</span>&nbsp;
-      <span class="w3">Shine!</span>
-    </h1>
-    <p>Welcome to <strong>PRG QuizZap!</strong> — your school's very own quiz platform! Answer daily questions from your teachers, challenge your classmates, and be the star of your class! 🌟</p>
-    <div class="hero-btns">
-      <button class="btn btn-big btn-yellow" onclick="openModal('signup')">🚀 Join as a Student!</button>
-      <button class="btn btn-big btn-ghost" onclick="openModal('login')">👋 Already a Member?</button>
-    </div>
-  </section>
+    <!-- ======================== VIEW: LANDING ======================== -->
+    <div class="view active" id="view-landing">
+        <nav>
+            <div class="logo-block">
+                <div class="logo">⚡ PRG QuizZap!</div>
+                <div class="school-name">PRG Velappa Naidu Matric Hr Sec School</div>
+            </div>
+            <div class="nav-btns">
+                <button class="btn btn-ghost" onclick="scrollTo(0,500)">Log In</button>
+                <button class="btn btn-primary" onclick="scrollTo(0,300)">Join Now</button>
+            </div>
+        </nav>
+        <section class="hero">
+            <span class="mascot">🦸</span>
+            <div class="school-badge">🏫 PRG Velappa Naidu Matric Hr Sec School</div>
+            <h1><span class="w1">Study.</span>&nbsp;<span class="w2">Quiz.</span>&nbsp;<span class="w3">Shine!</span>
+            </h1>
+            <p>Welcome to <strong>PRG QuizZap!</strong> — your school's very own quiz platform! Answer daily questions
+                from
+                your teachers, challenge your classmates, and be the star of your class! 🌟</p>
+            <div class="hero-btns">
+                <button class="btn btn-big btn-yellow"
+                    onclick="document.getElementById('signup-card').scrollIntoView({behavior:'smooth'})">🚀 Join as a
+                    Student!</button>
+                <button class="btn btn-big btn-ghost"
+                    onclick="document.getElementById('login-card').scrollIntoView({behavior:'smooth'})">👋 Already a
+                    Member?</button>
+            </div>
+        </section>
 
-  <!-- QUIZ SUBJECTS -->
-  <div class="section-label reveal">📚 Today's Quiz Subjects</div>
-  <div class="cards reveal">
-    <div class="card" style="--accent:var(--blue);--glow:rgba(43,217,254,.12)">
-      <span class="card-tag" style="background:rgba(43,217,254,.2);color:var(--blue);">Daily</span>
-      <span class="card-emoji">🔬</span>
-      <h3>Science</h3>
-      <p>Explore experiments, discoveries and cool science facts!</p>
-      <span class="q-count">5 Questions Today</span>
+        <div class="section-label">👇 Join the Quiz Family!</div>
+        <div class="auth-section">
+            <!-- SIGN UP -->
+            <div class="auth-card signup" id="signup-card">
+                <h2>🌟 Create Account</h2>
+                <p class="subtitle">Sign up and start answering today's questions!</p>
+                <div class="form-group"><label>Full Name</label><input type="text" id="su-name"
+                        placeholder="e.g. Arun Kumar" />
+                </div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="su-email"
+                        placeholder="your@email.com" /></div>
+                <div class="form-group"><label>Your Class &amp; Section</label>
+                    <select id="su-class">
+                        <option value="">Select your class 📚</option>
+                        <option>Class 3 – A</option>
+                        <option>Class 3 – B</option>
+                        <option>Class 3 – C</option>
+                        <option>Class 3 – D</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Create Password</label><input type="password" id="su-pass"
+                        placeholder="Create a secret password 🔒" /></div>
+                <button class="btn btn-green btn-big" style="width:100%;margin-top:.3rem" onclick="doSignup()">🚀 Create
+                    My
+                    Account!</button>
+                <div class="auth-footer">Already a member? <a href="#"
+                        onclick="document.getElementById('login-card').scrollIntoView({behavior:'smooth'});return false;">Log
+                        In
+                        →</a></div>
+            </div>
+            <!-- LOG IN -->
+            <div class="auth-card login" id="login-card">
+                <h2>👋 Welcome Back!</h2>
+                <p class="subtitle">Ready for today's quiz? 📝</p>
+                <div class="form-group"><label>Email Address</label><input type="email" id="li-email"
+                        placeholder="your@email.com" /></div>
+                <div class="form-group"><label>Password</label><input type="password" id="li-pass"
+                        placeholder="Your secret key 🔑" /></div>
+                <button class="btn btn-primary btn-big" style="width:100%" onclick="doLogin()">⚡ Start Today's
+                    Quiz!</button>
+                <div class="auth-footer">New student? <a href="#"
+                        onclick="document.getElementById('signup-card').scrollIntoView({behavior:'smooth'});return false;">Sign
+                        Up
+                        Free →</a></div>
+            </div>
+        </div>
+        <footer>
+            <p>Made with ❤️ for the students of <strong>PRG Velappa Naidu Matric Hr Sec School</strong> &nbsp;·&nbsp;
+                School
+                Project 2026</p>
+        </footer>
     </div>
-    <div class="card" style="--accent:var(--pink);--glow:rgba(255,77,166,.12)">
-      <span class="card-tag" style="background:rgba(255,77,166,.2);color:var(--pink);">Daily</span>
-      <span class="card-emoji">🌍</span>
-      <h3>Social Science</h3>
-      <p>History, civics, geography — discover the world around you!</p>
-      <span class="q-count">5 Questions Today</span>
-    </div>
-    <div class="card" style="--accent:var(--yellow);--glow:rgba(255,215,0,.12)">
-      <span class="card-tag" style="background:rgba(255,215,0,.2);color:var(--yellow);">Daily</span>
-      <span class="card-emoji">🔢</span>
-      <h3>Mathematics</h3>
-      <p>Numbers, shapes and equations — become a maths wizard!</p>
-      <span class="q-count">5 Questions Today</span>
-    </div>
-    <div class="card" style="--accent:var(--green);--glow:rgba(6,214,160,.12)">
-      <span class="card-tag" style="background:rgba(6,214,160,.2);color:var(--green);">Daily</span>
-      <span class="card-emoji">🔤</span>
-      <h3>English</h3>
-      <p>Grammar, vocabulary and language adventures await you!</p>
-      <span class="q-count">5 Questions Today</span>
-    </div>
-  </div>
 
-  <!-- AUTH -->
-  <div class="section-label reveal" style="margin-top:3.5rem;">👇 Join the Quiz Family!</div>
-  <div class="auth-section reveal">
+    <!-- ======================== VIEW: STUDENT DASHBOARD ======================== -->
+    <div class="view" id="view-student">
+        <div class="dash-header">
+            <div class="logo-block">
+                <div class="logo">⚡ PRG QuizZap!</div>
+                <div class="school-name">PRG Velappa Naidu Matric Hr Sec School</div>
+            </div>
+            <div class="user-badge">
+                <div class="user-avatar">👦</div>
+                <div class="user-info"><span class="user-name" id="dash-name">Student</span><span class="user-score"
+                        id="dash-score">⭐ 0 Points</span></div>
+            </div>
+            <div class="dash-nav">
+                <button class="btn btn-yellow" onclick="showLeaderboard()">🏆 Leaderboard</button>
+                <button class="btn btn-ghost" onclick="doLogout()">🚪 Logout</button>
+            </div>
+        </div>
+        <div class="section-label">📚 Choose a Subject!</div>
+        <div class="sector-cards" id="sector-cards">
+            <div class="sector-card" style="--accent:var(--blue);--glow:rgba(43,217,254,.12)"
+                onclick="startQuiz('Science')">
+                <span class="s-icon">🔬</span>
+                <h3>Science</h3>
+                <p class="q-info" id="si-Science">5 Questions</p>
+            </div>
+            <div class="sector-card" style="--accent:var(--pink);--glow:rgba(255,77,166,.12)"
+                onclick="startQuiz('Social Science')">
+                <span class="s-icon">🌍</span>
+                <h3>Social Science</h3>
+                <p class="q-info" id="si-Social Science">5 Questions</p>
+            </div>
+            <div class="sector-card" style="--accent:var(--yellow);--glow:rgba(255,215,0,.12)"
+                onclick="startQuiz('Mathematics')">
+                <span class="s-icon">🔢</span>
+                <h3>Mathematics</h3>
+                <p class="q-info" id="si-Mathematics">5 Questions</p>
+            </div>
+            <div class="sector-card" style="--accent:var(--green);--glow:rgba(6,214,160,.12)"
+                onclick="startQuiz('English')">
+                <span class="s-icon">🔤</span>
+                <h3>English</h3>
+                <p class="q-info" id="si-English">5 Questions</p>
+            </div>
+        </div>
+    </div>
 
-    <!-- SIGN UP -->
-    <div class="auth-card signup">
-      <h2>🌟 Create Account</h2>
-      <p class="subtitle">Sign up and start answering today's questions!</p>
-      <div class="form-group">
-        <label>Your Full Name</label>
-        <input type="text" placeholder="e.g. Arun Kumar" />
+    <!-- ======================== VIEW: QUIZ ======================== -->
+    <div class="view" id="view-quiz">
+        <div class="dash-header">
+            <div class="logo-block">
+                <div class="logo">⚡ PRG QuizZap!</div>
+            </div>
+            <div class="user-badge">
+                <div class="user-avatar">👦</div>
+                <div class="user-info"><span class="user-name" id="quiz-name">Student</span><span class="user-score"
+                        id="quiz-score">⭐ 0 Points</span></div>
+            </div>
+            <button class="btn btn-ghost" onclick="showView('view-student')">← Back</button>
+        </div>
+        <div class="quiz-container" id="quiz-container"></div>
+    </div>
+
+    <!-- ======================== VIEW: LEADERBOARD ======================== -->
+    <div class="view" id="view-leaderboard">
+        <div class="dash-header">
+            <div class="logo-block">
+                <div class="logo">⚡ PRG QuizZap!</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;">
+                <!-- Teacher-only class picker -->
+                <div id="lb-class-picker" style="display:none">
+                    <select id="lb-class-select" onchange="renderLB()"
+                        style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;color:var(--white);font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;padding:.5rem .9rem;outline:none;">
+                        <option value="Class 3 – A">Class 3 – A</option>
+                        <option value="Class 3 – B">Class 3 – B</option>
+                        <option value="Class 3 – C">Class 3 – C</option>
+                        <option value="Class 3 – D">Class 3 – D</option>
+                    </select>
+                </div>
+                <button class="btn btn-ghost" id="lb-back-btn" onclick="lbGoBack()">← Back</button>
+            </div>
+        </div>
+        <div class="section-label" id="lb-title">🏆 Class Leaderboard</div>
+        <div class="leaderboard" id="leaderboard-list"></div>
+    </div>
+
+    <!-- ======================== VIEW: TEACHER PORTAL ======================== -->
+    <div class="view" id="view-teacher">
+        <div class="dash-header">
+            <div class="logo-block">
+                <div class="logo">⚡ PRG QuizZap!</div>
+                <div class="school-name">Teacher Portal</div>
+            </div>
+            <div class="dash-nav">
+                <button class="btn btn-yellow" onclick="showLeaderboard()">🏆 Leaderboard</button>
+                <button class="btn btn-red" onclick="clearDatabase()">🗑️ Clear All Data</button>
+                <button class="btn btn-ghost" onclick="doLogout()">🚪 Logout</button>
+            </div>
+        </div>
+        <div class="section-label" style="margin-top:1rem;">👩‍🏫 Upload Daily Questions</div>
+        <div class="teacher-wrap">
+            <div class="t-tabs">
+                <button class="t-tab active" onclick="switchTab('Science',this)">🔬 Science</button>
+                <button class="t-tab" onclick="switchTab('Social Science',this)">🌍 Social Science</button>
+                <button class="t-tab" onclick="switchTab('Mathematics',this)">🔢 Maths</button>
+                <button class="t-tab" onclick="switchTab('English',this)">🔤 English</button>
+            </div>
+            <div id="teacher-panels"></div>
+            <button class="btn btn-green btn-big" style="width:100%;margin-top:1rem" onclick="saveCurrentPanel()">💾
+                Save
+                Questions for Current Subject</button>
+        </div>
+    </div>
+
+    <script>
+        // ===================== DATABASE =====================
+        const DB = {
+            getStudents() { return JSON.parse(localStorage.getItem('qz_students') || '[]'); },
+            saveStudents(s) { localStorage.setItem('qz_students', JSON.stringify(s)); },
+            getQuestions() { return JSON.parse(localStorage.getItem('qz_questions') || '{}'); },
+            saveQuestions(q) { localStorage.setItem('qz_questions', JSON.stringify(q)); },
+            getCurrentUser() { return localStorage.getItem('qz_curUser') || null; },
+            setCurrentUser(e) { localStorage.setItem('qz_curUser', e); },
+            clearCurrentUser() { localStorage.removeItem('qz_curUser'); },
+            clearAll() {
+                localStorage.removeItem('qz_students');
+                localStorage.removeItem('qz_questions');
+                localStorage.removeItem('qz_curUser');
+            }
+        };
+
+        const TEACHER_EMAIL = 'pravinjeyavel25@gmail.com';
+        const SUBJECTS = ['Science', 'Social Science', 'Mathematics', 'English'];
+        let currentSubject = 'Science';
+        let currentQIndex = 0;
+        let currentQuestions = [];
+        let feedbackTimer = null;
+
+        // ===================== STARS & FLOATERS =====================
+        (function () {
+            const c = document.getElementById('bgCanvas');
+            for (let i = 0; i < 80; i++) {
+                const s = document.createElement('div'); s.className = 'star';
+                const sz = Math.random() * 3 + 1;
+                s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random() * 100}%;left:${Math.random() * 100}%;--d:${1 + Math.random() * 3}s;animation-delay:${Math.random() * 3}s`;
+                c.appendChild(s);
+            }
+            ['⭐', '🌈', '🎯', '❓', '🏆', '🚀', '🎉', '💡', '🔥', '📚', '💎', '🌟'].forEach((e, i) => {
+                const d = document.createElement('div'); d.className = 'floater'; d.textContent = e;
+                d.style.cssText = `top:${5 + Math.random() * 85}%;left:${2 + Math.random() * 90}%;--ft:${4 + Math.random() * 5}s;animation-delay:${i * .4}s`;
+                document.getElementById('floaters').appendChild(d);
+            });
+        })();
+
+        // ===================== VIEW SWITCHING =====================
+        function showView(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // ===================== AUTH =====================
+        function doSignup() {
+            const name = document.getElementById('su-name').value.trim();
+            const email = document.getElementById('su-email').value.trim().toLowerCase();
+            const cls = document.getElementById('su-class').value;
+            const pass = document.getElementById('su-pass').value;
+            if (!name || !email || !cls || !pass) { showToast('⚠️ Fill all fields!', '#FF4DA6'); return; }
+            if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showToast('⚠️ Enter a valid email!', '#FF4DA6'); return; }
+            if (pass.length < 4) { showToast('⚠️ Password must be at least 4 characters!', '#FF4DA6'); return; }
+            const students = DB.getStudents();
+            if (students.find(s => s.email === email)) { showToast('⚠️ Email already registered!', '#FF4DA6'); return; }
+            students.push({ name, email, password: pass, class: cls, score: 0, answered: {} });
+            DB.saveStudents(students);
+            DB.setCurrentUser(email);
+            showToast('✅ Account created! Welcome, ' + name + '!');
+            enterStudentDash();
+        }
+
+        function doLogin() {
+            const email = document.getElementById('li-email').value.trim().toLowerCase();
+            const pass = document.getElementById('li-pass').value;
+            if (!email || !pass) { showToast('⚠️ Enter email and password!', '#FF4DA6'); return; }
+            // Teacher check
+            if (email === TEACHER_EMAIL) {
+                DB.setCurrentUser(email);
+                buildTeacherPanels();
+                showView('view-teacher');
+                return;
+            }
+            const students = DB.getStudents();
+            const student = students.find(s => s.email === email && s.password === pass);
+            if (!student) { showToast('⚠️ Wrong email or password!', '#FF4DA6'); return; }
+            DB.setCurrentUser(email);
+            enterStudentDash();
+        }
+
+        function doLogout() {
+            DB.clearCurrentUser();
+            showView('view-landing');
+        }
+
+        function enterStudentDash() {
+            const email = DB.getCurrentUser();
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            if (!me) return;
+            document.getElementById('dash-name').textContent = '👋 ' + me.name;
+            document.getElementById('dash-score').textContent = '⭐ ' + me.score + ' Points';
+            updateSectorCards(me);
+            showView('view-student');
+        }
+
+        function updateSectorCards(me) {
+            SUBJECTS.forEach(sub => {
+                const qs = DB.getQuestions()[sub] || [];
+                const el = document.getElementById('si-' + sub);
+                if (el) {
+                    const answered = Object.keys((me.answered || {})[sub] || {}).length;
+                    const total = qs.length;
+                    el.textContent = total === 0 ? 'No questions yet' : answered + ' / ' + total + ' answered';
+                }
+            });
+        }
+
+        // ===================== QUIZ =====================
+        function startQuiz(subject) {
+            const qs = DB.getQuestions()[subject] || [];
+            if (qs.length === 0) { showToast('⚠️ No questions in ' + subject + ' yet!', '#FF4DA6'); return; }
+            const email = DB.getCurrentUser();
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            if (!me) return;
+            answered = me.answered || {};
+            const remaining = qs.filter((_, i) => !(answered[subject] && answered[subject][i]));
+            if (remaining.length === 0) { showToast('✅ You already completed ' + subject + '!'); return; }
+            currentSubject = subject;
+            currentQuestions = qs;
+            currentQIndex = 0;
+            document.getElementById('quiz-name').textContent = '👋 ' + me.name;
+            document.getElementById('quiz-score').textContent = '⭐ ' + me.score + ' Points';
+            showView('view-quiz');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const email = DB.getCurrentUser();
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            const qs = currentQuestions;
+            const answered = me.answered || {};
+            // find next unanswered
+            while (currentQIndex < qs.length && answered[currentSubject] && answered[currentSubject][currentQIndex]) {
+                currentQIndex++;
+            }
+            if (currentQIndex >= qs.length) {
+                showDoneScreen();
+                return;
+            }
+            const q = qs[currentQIndex];
+            const total = qs.length;
+            const doneCount = Object.keys((answered[currentSubject]) || {}).length;
+            const pct = Math.round((doneCount / total) * 100);
+            const LETTERS = ['A', 'B', 'C', 'D'];
+            document.getElementById('quiz-container').innerHTML = `
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
+    <div class="q-card">
+      <div class="q-label">Question ${currentQIndex + 1} of ${total} · ${currentSubject}</div>
+      <div class="q-text">${q.question}</div>
+      <div class="options-grid">
+        ${q.options.map((opt, i) => `
+          <button class="opt-btn" id="opt-${i}" onclick="pickAnswer(${i})">
+            <span class="opt-letter">${LETTERS[i]}</span>${opt}
+          </button>`).join('')}
       </div>
-      <div class="form-group">
-        <label>Roll Number</label>
-        <input type="text" placeholder="e.g. 2024001" />
-      </div>
-      <div class="form-group">
-        <label>Your Class &amp; Section</label>
-        <select>
-          <option value="">Select your class 📚</option>
-          <option>Class 1 – A</option><option>Class 1 – B</option>
-          <option>Class 2 – A</option><option>Class 2 – B</option>
-          <option>Class 3 – A</option><option>Class 3 – B</option>
-          <option>Class 4 – A</option><option>Class 4 – B</option>
-          <option>Class 5 – A</option><option>Class 5 – B</option>
-          <option>Class 6 – A</option><option>Class 6 – B</option>
-          <option>Class 7 – A</option><option>Class 7 – B</option>
-          <option>Class 8 – A</option><option>Class 8 – B</option>
-          <option>Class 9 – A</option><option>Class 9 – B</option>
-          <option>Class 10 – A</option><option>Class 10 – B</option>
-          <option>Class 11 – Science</option><option>Class 11 – Arts</option>
-          <option>Class 12 – Science</option><option>Class 12 – Arts</option>
+    </div>`;
+        }
+
+        function pickAnswer(idx) {
+            const q = currentQuestions[currentQIndex];
+            const correct = q.answer === idx;
+            // Disable all buttons
+            q.options.forEach((_, i) => document.getElementById('opt-' + i).disabled = true);
+            document.getElementById('opt-' + idx).classList.add(correct ? 'correct' : 'wrong');
+            if (correct) document.getElementById('opt-' + q.answer).classList.add('correct');
+
+            // Save answered
+            const email = DB.getCurrentUser();
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            if (!me.answered) me.answered = {};
+            if (!me.answered[currentSubject]) me.answered[currentSubject] = {};
+            me.answered[currentSubject][currentQIndex] = true;
+            if (correct) {
+                me.score = (me.score || 0) + 1;
+                document.getElementById('quiz-score').textContent = '⭐ ' + me.score + ' Points';
+            }
+            DB.saveStudents(students);
+
+            // Show feedback
+            if (correct) showCorrectFeedback();
+            else showWrongFeedback();
+
+            clearTimeout(feedbackTimer);
+            feedbackTimer = setTimeout(() => {
+                hideFeedback();
+                currentQIndex++;
+                renderQuestion();
+            }, 2200);
+        }
+
+        function showCorrectFeedback() {
+            const ov = document.getElementById('feedbackOverlay');
+            ov.className = 'feedback-overlay correct-bg show';
+            document.getElementById('feedbackIcon').textContent = '✅';
+            document.getElementById('feedbackText').textContent = 'Amazing! Correct! 🎉';
+            document.getElementById('feedbackSub').textContent = 'Keep going, quiz champion!';
+            document.getElementById('pointBurst').textContent = '+1 Point! ⭐';
+            spawnApplause();
+            spawnConfetti();
+        }
+
+        function showWrongFeedback() {
+            const ov = document.getElementById('feedbackOverlay');
+            ov.className = 'feedback-overlay wrong-bg show';
+            document.getElementById('feedbackIcon').textContent = '😢';
+            document.getElementById('feedbackText').textContent = 'Sorry! Better Luck Next Time!';
+            document.getElementById('feedbackSub').textContent = "Don't give up — you've got this!";
+            document.getElementById('pointBurst').textContent = '';
+        }
+
+        function hideFeedback() {
+            document.getElementById('feedbackOverlay').classList.remove('show');
+        }
+
+        function showDoneScreen() {
+            const email = DB.getCurrentUser();
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            const total = currentQuestions.length;
+            const done = Object.keys((me.answered || {})[currentSubject] || {}).length;
+            document.getElementById('quiz-container').innerHTML = `
+    <div class="done-card">
+      <div class="big-icon">🏆</div>
+      <h2>Subject Complete!</h2>
+      <p>You answered <strong>${done} / ${total}</strong> questions in <strong>${currentSubject}</strong>!</p>
+      <p style="color:var(--yellow);font-family:'Fredoka One',cursive;font-size:1.5rem;margin-bottom:1.5rem;">Total Score: ${me.score} ⭐</p>
+      <button class="btn btn-yellow btn-big" onclick="showView('view-student');enterStudentDash()">← Back to Subjects</button>
+      <button class="btn btn-primary btn-big" style="margin-top:.8rem" onclick="showLeaderboard()">🏆 View Leaderboard</button>
+    </div>`;
+            spawnConfetti();
+        }
+
+        // ===================== APPLAUSE RINGS =====================
+        function spawnApplause() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const r = document.createElement('div');
+                    r.className = 'applause-ring';
+                    r.style.cssText = `left:50%;top:40%;transform:translate(-50%,-50%);animation-delay:${i * .2}s`;
+                    document.body.appendChild(r);
+                    r.addEventListener('animationend', () => r.remove());
+                }, i * 200);
+            }
+        }
+
+        // ===================== CONFETTI =====================
+        const CCOLS = ['#FFD700', '#FF6B35', '#FF4DA6', '#2BD9FE', '#9B5DE5', '#06D6A0', '#fff'];
+        function spawnConfetti() {
+            for (let i = 0; i < 60; i++) {
+                const c = document.createElement('div'); c.className = 'confetti-piece';
+                c.style.cssText = `left:${20 + Math.random() * 60}%;top:0;background:${CCOLS[Math.floor(Math.random() * CCOLS.length)]};transform:rotate(${Math.random() * 360}deg);animation-duration:${.8 + Math.random() * 1.5}s;animation-delay:${Math.random() * .4}s;width:${6 + Math.random() * 10}px;height:${6 + Math.random() * 10}px;border-radius:${Math.random() > .5 ? '50%' : '2px'};`;
+                document.body.appendChild(c);
+                c.addEventListener('animationend', () => c.remove());
+            }
+        }
+
+        // ===================== LEADERBOARD =====================
+        let lbReturnView = 'view-student';
+        let lbIsTeacher = false;
+
+        function showLeaderboard() {
+            const email = DB.getCurrentUser();
+            lbIsTeacher = (email === TEACHER_EMAIL);
+            lbReturnView = lbIsTeacher ? 'view-teacher' : 'view-student';
+
+            const picker = document.getElementById('lb-class-picker');
+            if (lbIsTeacher) {
+                // Teacher sees class picker
+                picker.style.display = 'block';
+                // Default to first class
+                document.getElementById('lb-class-select').value = 'Class 3 – A';
+            } else {
+                // Student sees only their class
+                picker.style.display = 'none';
+                const students = DB.getStudents();
+                const me = students.find(s => s.email === email);
+                if (me) {
+                    // Store their class as a data attr so renderLB can read it
+                    document.getElementById('lb-class-select').value = me.class;
+                }
+            }
+            showView('view-leaderboard');
+            renderLB();
+        }
+
+        function renderLB() {
+            const email = DB.getCurrentUser();
+            const selectedClass = document.getElementById('lb-class-select').value;
+            const allStudents = DB.getStudents();
+            const filtered = allStudents
+                .filter(s => s.class === selectedClass)
+                .sort((a, b) => b.score - a.score);
+            const medals = ['🥇', '🥈', '🥉'];
+            document.getElementById('lb-title').textContent = '🏆 ' + selectedClass + ' Leaderboard';
+            document.getElementById('leaderboard-list').innerHTML = filtered.length === 0
+                ? '<p style="text-align:center;color:rgba(255,254,244,.5);font-weight:700;padding:2rem;">No students in this class yet!</p>'
+                : filtered.map((s, i) => `
+          <div class="lb-row ${s.email === email ? 'me' : ''}">
+            <div class="lb-rank">${medals[i] || ('#' + (i + 1))}</div>
+            <div style="flex:1">
+              <div class="lb-name">${s.name}${s.email === email ? ' 👈 You' : ''}</div>
+              <div class="lb-class">${s.class}</div>
+            </div>
+            <div class="lb-score">${s.score} ⭐</div>
+          </div>`).join('');
+        }
+
+        function lbGoBack() { showView(lbReturnView); }
+
+        // ===================== TEACHER PORTAL =====================
+        function buildTeacherPanels() {
+            const savedQs = DB.getQuestions();
+            const container = document.getElementById('teacher-panels');
+            container.innerHTML = '';
+            SUBJECTS.forEach(sub => {
+                const existing = savedQs[sub] || [];
+                const panel = document.createElement('div');
+                panel.className = 't-panel' + (sub === currentSubject ? ' active' : '');
+                panel.id = 'panel-' + sub;
+                let html = '';
+                for (let i = 0; i < 5; i++) {
+                    const q = existing[i] || { question: '', options: ['', '', '', ''], answer: 0 };
+                    html += `<div class="q-upload-card">
+        <div class="q-num-head">Question ${i + 1}</div>
+        <input type="text" placeholder="Type your question here…" id="tq-${sub}-${i}-q" value="${esc(q.question)}"/>
+        <div class="opts-row">
+          <input type="text" placeholder="Option A" id="tq-${sub}-${i}-0" value="${esc(q.options[0] || '')}"/>
+          <input type="text" placeholder="Option B" id="tq-${sub}-${i}-1" value="${esc(q.options[1] || '')}"/>
+          <input type="text" placeholder="Option C" id="tq-${sub}-${i}-2" value="${esc(q.options[2] || '')}"/>
+          <input type="text" placeholder="Option D" id="tq-${sub}-${i}-3" value="${esc(q.options[3] || '')}"/>
+        </div>
+        <select id="tq-${sub}-${i}-ans">
+          <option value="0" ${q.answer === 0 ? 'selected' : ''}>✅ Correct Answer: A</option>
+          <option value="1" ${q.answer === 1 ? 'selected' : ''}>✅ Correct Answer: B</option>
+          <option value="2" ${q.answer === 2 ? 'selected' : ''}>✅ Correct Answer: C</option>
+          <option value="3" ${q.answer === 3 ? 'selected' : ''}>✅ Correct Answer: D</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label>Create Password</label>
-        <input type="password" placeholder="Create a secret password 🔒" />
-      </div>
-      <button class="btn btn-green btn-big" style="width:100%;margin-top:.3rem" onclick="triggerConfetti(this)">
-        🚀 Create My Account!
-      </button>
-      <div class="divider">or sign up with</div>
-      <div class="social-btns">
-        <button class="social-btn"><span class="s-icon">🔵</span> Continue with Google</button>
-      </div>
-      <div class="auth-footer">Already a member? <a href="#" onclick="openModal('login');return false;">Log In →</a></div>
-    </div>
+      </div>`;
+                }
+                panel.innerHTML = html;
+                container.appendChild(panel);
+            });
+        }
 
-    <!-- LOG IN -->
-    <div class="auth-card login">
-      <h2>👋 Welcome Back!</h2>
-      <p class="subtitle">Ready for today's quiz from your teacher? 📝</p>
-      <div class="form-group">
-        <label>Roll Number or Name</label>
-        <input type="text" placeholder="Your roll number" />
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="Your secret key 🔑" />
-      </div>
-      <div style="background:rgba(255,255,255,.05);border-radius:14px;padding:1rem;margin-bottom:1rem;border:1px solid rgba(255,255,255,.08)">
-        <div style="font-size:.8rem;font-weight:800;color:rgba(255,254,244,.6);margin-bottom:.3rem;">🏅 Your Progress</div>
-        <div style="font-size:.95rem;font-weight:800;">Class Champion – Level 7</div>
-        <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
-        <div style="font-size:.75rem;color:rgba(255,254,244,.4);margin-top:.3rem;font-weight:600;">72% to next level</div>
-      </div>
-      <button class="btn btn-primary btn-big" style="width:100%" onclick="triggerConfetti(this)">
-        ⚡ Start Today's Quiz!
-      </button>
-      <div class="divider">or log in with</div>
-      <div class="social-btns">
-        <button class="social-btn"><span class="s-icon">🔵</span> Continue with Google</button>
-      </div>
-      <div class="auth-footer">
-        Forgot password? <a href="#">Reset it ✨</a><br/>
-        New student? <a href="#" onclick="openModal('signup');return false;">Sign Up Free →</a>
-      </div>
-    </div>
-  </div>
+        function esc(str) { return str.replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 
-  <!-- ===== TEACHER PORTAL ===== -->
-  <div class="section-label reveal" id="teacherSection" style="margin-top:4rem;">👩‍🏫 Teacher's Question Portal</div>
-  <div class="teacher-section reveal">
-    <div class="teacher-card">
-      <div class="teacher-header">
-        <div class="teacher-title-row">
-          <h2>Upload Daily Questions</h2>
-          <span class="teacher-tag">Teachers Only</span>
-        </div>
-        <p>Enter 5 questions for each subject below. Students will see them once you save! 🎯</p>
-      </div>
+        function switchTab(sub, btn) {
+            currentSubject = sub;
+            document.querySelectorAll('.t-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.t-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + sub).classList.add('active');
+        }
 
-      <!-- Verify row -->
-      <div class="teacher-verify-row">
-        <div class="form-group" style="margin:0">
-          <label>Teacher Name</label>
-          <input type="text" id="teacherName" placeholder="e.g. Mrs. Priya" />
-        </div>
-        <div class="form-group" style="margin:0">
-          <label>Class Assigned</label>
-          <select id="teacherClass">
-            <option value="">Select class</option>
-            <option>Class 6</option><option>Class 7</option><option>Class 8</option>
-            <option>Class 9</option><option>Class 10</option>
-            <option>Class 11</option><option>Class 12</option>
-          </select>
-        </div>
-        <button class="btn btn-yellow" style="height:48px;margin-top:1.5rem;white-space:nowrap" onclick="verifyTeacher()">✅ Verify &amp; Open</button>
-      </div>
+        function saveCurrentPanel() {
+            const sub = currentSubject;
+            const savedQs = DB.getQuestions();
+            const arr = [];
+            let valid = true;
+            for (let i = 0; i < 5; i++) {
+                const q = document.getElementById(`tq-${sub}-${i}-q`).value.trim();
+                const opts = [0, 1, 2, 3].map(j => document.getElementById(`tq-${sub}-${i}-${j}`).value.trim());
+                const ans = parseInt(document.getElementById(`tq-${sub}-${i}-ans`).value);
+                if (!q || opts.some(o => !o)) { valid = false; break; }
+                arr.push({ question: q, options: opts, answer: ans });
+            }
+            if (!valid) { showToast('⚠️ Fill all questions and options!', '#FF4DA6'); return; }
+            savedQs[sub] = arr;
+            DB.saveQuestions(savedQs);
+            showToast('✅ ' + sub + ' questions saved!');
+            spawnConfetti();
+        }
 
-      <div class="sector-grid" id="sectorGrid">
+        function clearDatabase() {
+            if (!confirm('⚠️ This will delete ALL student accounts, scores, and questions. Are you sure?')) return;
+            DB.clearAll();
+            showToast('🗑️ All data cleared!', '#FF4DA6');
+            setTimeout(() => showView('view-landing'), 1500);
+        }
 
-        <!-- Science -->
-        <div class="sector-panel" style="--s-color:var(--blue)" data-sector="Science">
-          <div class="sector-head" onclick="toggleSector(this.parentElement)">
-            <span class="s-emoji">🔬</span>
-            <span class="s-label">Science</span>
-            <span class="arrow">▼</span>
-          </div>
-          <div class="sector-body">
-            <div class="q-row"><div class="q-num">1</div><textarea class="q-input" rows="2" placeholder="Type Science question 1…"></textarea></div>
-            <div class="q-row"><div class="q-num">2</div><textarea class="q-input" rows="2" placeholder="Type Science question 2…"></textarea></div>
-            <div class="q-row"><div class="q-num">3</div><textarea class="q-input" rows="2" placeholder="Type Science question 3…"></textarea></div>
-            <div class="q-row"><div class="q-num">4</div><textarea class="q-input" rows="2" placeholder="Type Science question 4…"></textarea></div>
-            <div class="q-row"><div class="q-num">5</div><textarea class="q-input" rows="2" placeholder="Type Science question 5…"></textarea></div>
-            <button class="sector-save" onclick="saveQuestions(this,'Science')">💾 Save Science Questions</button>
-          </div>
-        </div>
+        // ===================== TOAST =====================
+        function showToast(msg, bg = '#06D6A0') {
+            const t = document.createElement('div'); t.className = 'toast';
+            t.style.background = bg; t.textContent = msg;
+            document.body.appendChild(t);
+            t.addEventListener('animationend', () => t.remove());
+        }
 
-        <!-- Social Science -->
-        <div class="sector-panel" style="--s-color:var(--pink)" data-sector="Social Science">
-          <div class="sector-head" onclick="toggleSector(this.parentElement)">
-            <span class="s-emoji">🌍</span>
-            <span class="s-label">Social Science</span>
-            <span class="arrow">▼</span>
-          </div>
-          <div class="sector-body">
-            <div class="q-row"><div class="q-num">1</div><textarea class="q-input" rows="2" placeholder="Type Social Science question 1…"></textarea></div>
-            <div class="q-row"><div class="q-num">2</div><textarea class="q-input" rows="2" placeholder="Type Social Science question 2…"></textarea></div>
-            <div class="q-row"><div class="q-num">3</div><textarea class="q-input" rows="2" placeholder="Type Social Science question 3…"></textarea></div>
-            <div class="q-row"><div class="q-num">4</div><textarea class="q-input" rows="2" placeholder="Type Social Science question 4…"></textarea></div>
-            <div class="q-row"><div class="q-num">5</div><textarea class="q-input" rows="2" placeholder="Type Social Science question 5…"></textarea></div>
-            <button class="sector-save" onclick="saveQuestions(this,'Social Science')">💾 Save Social Science Questions</button>
-          </div>
-        </div>
-
-        <!-- Mathematics -->
-        <div class="sector-panel" style="--s-color:var(--yellow)" data-sector="Mathematics">
-          <div class="sector-head" onclick="toggleSector(this.parentElement)">
-            <span class="s-emoji">🔢</span>
-            <span class="s-label">Mathematics</span>
-            <span class="arrow">▼</span>
-          </div>
-          <div class="sector-body">
-            <div class="q-row"><div class="q-num">1</div><textarea class="q-input" rows="2" placeholder="Type Maths question 1…"></textarea></div>
-            <div class="q-row"><div class="q-num">2</div><textarea class="q-input" rows="2" placeholder="Type Maths question 2…"></textarea></div>
-            <div class="q-row"><div class="q-num">3</div><textarea class="q-input" rows="2" placeholder="Type Maths question 3…"></textarea></div>
-            <div class="q-row"><div class="q-num">4</div><textarea class="q-input" rows="2" placeholder="Type Maths question 4…"></textarea></div>
-            <div class="q-row"><div class="q-num">5</div><textarea class="q-input" rows="2" placeholder="Type Maths question 5…"></textarea></div>
-            <button class="sector-save" onclick="saveQuestions(this,'Mathematics')">💾 Save Maths Questions</button>
-          </div>
-        </div>
-
-        <!-- English -->
-        <div class="sector-panel" style="--s-color:var(--green)" data-sector="English">
-          <div class="sector-head" onclick="toggleSector(this.parentElement)">
-            <span class="s-emoji">🔤</span>
-            <span class="s-label">English</span>
-            <span class="arrow">▼</span>
-          </div>
-          <div class="sector-body">
-            <div class="q-row"><div class="q-num">1</div><textarea class="q-input" rows="2" placeholder="Type English question 1…"></textarea></div>
-            <div class="q-row"><div class="q-num">2</div><textarea class="q-input" rows="2" placeholder="Type English question 2…"></textarea></div>
-            <div class="q-row"><div class="q-num">3</div><textarea class="q-input" rows="2" placeholder="Type English question 3…"></textarea></div>
-            <div class="q-row"><div class="q-num">4</div><textarea class="q-input" rows="2" placeholder="Type English question 4…"></textarea></div>
-            <div class="q-row"><div class="q-num">5</div><textarea class="q-input" rows="2" placeholder="Type English question 5…"></textarea></div>
-            <button class="sector-save" onclick="saveQuestions(this,'English')">💾 Save English Questions</button>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="upload-note">
-        <span class="note-icon">💡</span>
-        <span>Each subject holds exactly <strong>5 questions per day</strong>. Questions are saved per subject and visible to students after saving. Verify your details above to unlock the panels.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-strip reveal" style="margin-top:3rem;">
-    <h2>🏆 Today's Class Leaderboard</h2>
-    <p>Students are answering right now — can you top your class board? 👀</p>
-    <button class="btn btn-yellow btn-big" onclick="triggerConfetti(this)">⚡ See Live Rankings!</button>
-  </div>
-
-  <footer>
-    <p>Made with ❤️ for the students of <strong>PRG Velappa Naidu Matric Hr Sec School</strong> &nbsp;·&nbsp; School Project 2026</p>
-  </footer>
-</div>
-
-<script>
-  /* STARS */
-  const cvs=document.getElementById('bgCanvas');
-  for(let i=0;i<80;i++){
-    const s=document.createElement('div');s.className='star';
-    const sz=Math.random()*3+1;
-    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${1+Math.random()*3}s;animation-delay:${Math.random()*3}s`;
-    cvs.appendChild(s);
-  }
-
-  /* FLOATERS */
-  ['⭐','🌈','🎯','❓','🏆','🚀','🎉','💡','🔥','📚','💎','🌟'].forEach((e,i)=>{
-    const d=document.createElement('div');d.className='floater';d.textContent=e;
-    d.style.cssText=`top:${5+Math.random()*85}%;left:${2+Math.random()*90}%;--ft:${4+Math.random()*5}s;animation-delay:${i*.4}s`;
-    document.getElementById('floaters').appendChild(d);
-  });
-
-  /* SCROLL REVEAL */
-  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-  /* CONFETTI */
-  const cols=['#FFD700','#FF6B35','#FF4DA6','#2BD9FE','#9B5DE5','#06D6A0','#fff'];
-  function triggerConfetti(btn){
-    const r=btn.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-    for(let i=0;i<60;i++){
-      const c=document.createElement('div');c.className='confetti-piece';
-      c.style.cssText=`left:${cx+(Math.random()-.5)*200}px;top:${cy}px;background:${cols[Math.floor(Math.random()*cols.length)]};transform:rotate(${Math.random()*360}deg);animation-duration:${.8+Math.random()*1.5}s;animation-delay:${Math.random()*.3}s;width:${6+Math.random()*10}px;height:${6+Math.random()*10}px;border-radius:${Math.random()>.5?'50%':'2px'};`;
-      document.body.appendChild(c);
-      c.addEventListener('animationend',()=>c.remove());
-    }
-  }
-
-  /* MODAL */
-  function openModal(type){
-    const ov=document.getElementById('modalOverlay');
-    document.getElementById('modalTitle').textContent=type==='signup'?'🌟 Create Student Account':'👋 Welcome Back!';
-    document.getElementById('modalSub').textContent=type==='signup'?'Join PRG QuizZap and start playing!':'Your daily quiz is waiting!';
-    document.getElementById('modalContent').innerHTML=type==='signup'?`
-      <div class="form-group"><label>Full Name</label><input type="text" placeholder="e.g. Arun Kumar"/></div>
-      <div class="form-group"><label>Roll Number</label><input type="text" placeholder="Your roll number"/></div>
-      <div class="form-group"><label>Class & Section</label><select><option>Select class...</option><option>Class 6 – A</option><option>Class 7 – A</option><option>Class 8 – A</option><option>Class 9 – A</option><option>Class 10 – A</option><option>Class 11 – Science</option><option>Class 12 – Science</option></select></div>
-      <div class="form-group"><label>Password</label><input type="password" placeholder="Create a password 🔒"/></div>
-      <button class="btn btn-green btn-big" style="width:100%;margin-top:.5rem" onclick="triggerConfetti(this);closeModal()">🚀 Let's Go!</button>
-      <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:rgba(255,254,244,.5);font-weight:600;">Already a member? <a href="#" style="color:var(--blue);font-weight:800;text-decoration:none" onclick="openModal('login');return false;">Log In</a></p>
-    `:`
-      <div class="form-group"><label>Roll Number or Name</label><input type="text" placeholder="Your roll number"/></div>
-      <div class="form-group"><label>Password</label><input type="password" placeholder="Your secret key 🔑"/></div>
-      <button class="btn btn-primary btn-big" style="width:100%;margin-top:.5rem" onclick="triggerConfetti(this);closeModal()">⚡ Start Quiz!</button>
-      <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:rgba(255,254,244,.5);font-weight:600;">New student? <a href="#" style="color:var(--green);font-weight:800;text-decoration:none" onclick="openModal('signup');return false;">Sign Up Free</a></p>
-    `;
-    ov.classList.add('open');
-  }
-  function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
-  document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
-
-  /* TEACHER */
-  function scrollToTeacher(){document.getElementById('teacherSection').scrollIntoView({behavior:'smooth',block:'start'});}
-
-  function verifyTeacher(){
-    const name=document.getElementById('teacherName').value.trim();
-    const cls=document.getElementById('teacherClass').value;
-    if(!name||!cls){showToast('⚠️ Enter your name and select a class first!','#FF4DA6');return;}
-    document.querySelectorAll('.sector-panel').forEach(p=>p.classList.add('open'));
-    showToast('✅ Verified! All question panels are now open.');
-  }
-
-  function toggleSector(panel){panel.classList.toggle('open');}
-
-  function saveQuestions(btn,sector){
-    const panel=btn.closest('.sector-panel');
-    const qs=[...panel.querySelectorAll('.q-input')].map(i=>i.value.trim());
-    if(qs.filter(q=>!q).length>0){showToast(`⚠️ Please fill all 5 ${sector} questions!`,'#FF4DA6');return;}
-    triggerConfetti(btn);
-    showToast(`✅ ${sector} questions saved! Students can now answer.`);
-    const orig=btn.textContent;
-    btn.textContent='✅ Saved!';
-    btn.style.background='linear-gradient(135deg,#06D6A0,#2BD9FE)';
-    setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);
-  }
-
-  function showToast(msg,bg='#06D6A0'){
-    const t=document.createElement('div');t.className='saved-toast';
-    t.style.background=bg;t.textContent=msg;
-    document.body.appendChild(t);
-    t.addEventListener('animationend',()=>t.remove());
-  }
-
-  /* CARD HOVER */
-  document.querySelectorAll('.card').forEach(c=>{
-    c.addEventListener('mousemove',e=>{
-      const r=c.getBoundingClientRect();
-      c.style.setProperty('--mx',`${e.clientX-r.left}px`);
-      c.style.setProperty('--my',`${e.clientY-r.top}px`);
-    });
-  });
-</script>
+        // ===================== AUTO LOGIN =====================
+        (function () {
+            const email = DB.getCurrentUser();
+            if (!email) return;
+            if (email === TEACHER_EMAIL) { buildTeacherPanels(); showView('view-teacher'); return; }
+            const students = DB.getStudents();
+            const me = students.find(s => s.email === email);
+            if (me) enterStudentDash();
+        })();
+    </script>
 </body>
+
 </html>
